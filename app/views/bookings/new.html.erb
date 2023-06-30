@@ -1,0 +1,29 @@
+<h1>New Booking</h1>
+
+<p><strong>Chosen Date:</strong> <%= @flight_obj.start_datetime %></p>
+<p><strong>Arrival Airport:</strong> <%= @arrival_airport %></p>
+<p><strong>Departure Airport: <%= @departure_airport %></strong></p>
+<hr>
+<%= form_with model: @booking do |f| %>
+  <%= f.number_field :flight_id, :value => @flight_obj.id.to_i, hidden: true%>
+  Passengers:
+  <% @passenger_num.times do |i|  %>
+    <div>
+    <%= f.fields_for :passengers do |sub_form| %>
+      <p><strong>Passenger <%= i %>'s information: </strong></p>
+      
+      <%= sub_form.label :name %>
+      <%= sub_form.text_field :name %>
+      
+      <%= sub_form.label :email %>
+      <%= sub_form.text_field :email %>
+    <% end %>
+    </div>
+  <% end %>
+  <input type="hidden" name="flight_id" value=<%= @flight_obj.id.to_i%>>
+
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

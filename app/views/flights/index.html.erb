@@ -1,0 +1,56 @@
+<h1>Flight Booker</h1>
+
+<form action="/flights" method="get">
+<p>Arrival Airports</p>
+<select name="arrival_airport">
+  <%= @airports.each do |airport| %>
+    <option value="<%= airport.code %>"><%= airport.code %></option>
+  <% end %>
+</select>
+
+<p>Departure Airports</p>
+<select name="departure_airport">
+  <%= @airports.each do |airport| %>
+    <option value="<%= airport.code %>"><%= airport.code %></option>
+  <% end %>
+</select>
+
+<p>Date</p>
+<select name="flight_date">
+  <%= @all_dates.each do |date| %>
+    <option value="<%= date %>"><%=date[0]%>-<%=date[1]%>-<%=date[2]%></option>
+  <% end %>
+</select>
+
+<p>Number of Passengers</p>
+<select name="passenger_num">
+<%= 1.upto(4) do |i| %>
+  <option value="<%= i %>"><%= i %></option>
+<% end %>
+</select>
+<br><br>
+<input type="submit" value="Submit">
+</form>
+
+<form action="/bookings/new" method="get">
+  <hr>
+  <% if @found_flights.length > 0 %>
+  <h3>Available Flights</h3>
+  <% @found_flights.each do |flight| %>
+    <input type="radio" id="<%=flight.id%>" name="chosen_flight" value="<%=flight.id%>">
+    <label for="<%=flight.id%>">  
+    Date: <%= flight.start_datetime %><br>
+    Arrival - <%= Airport.find(flight.arrival_airport_id).code  %><br>
+    Departure - <%= Airport.find(flight.departure_airport_id).code  %><br>
+    </label>
+  <% end %>
+  <% end %>
+  <p>Number of Passengers</p>
+  <select name="passenger_num">
+  <%= 1.upto(4) do |i| %>
+    <option value="<%= i %>"><%= i %></option>
+  <% end %>
+  </select><br><br>
+  <input type="submit" value="Book">
+</form>
+

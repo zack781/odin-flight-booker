@@ -1,0 +1,14 @@
+<h1>Your Booking</h1>
+
+<p><strong>Chosen Date:</strong> <%= Flight.find(@booking.flight_id).start_datetime %></p>
+<p><strong>Arrival Airport:</strong> <%= Airport.find(Flight.find(@booking.flight_id).arrival_airport_id).code %></p>
+<p><strong>Departure Airport:</strong> <%= Airport.find(Flight.find(@booking.flight_id).departure_airport_id).code %></p>
+
+<h2>Passengers</h2>
+<ul>
+  <hr>
+  <%@booking.passengers.each do |passenger| %>
+    <p><strong>Passenger:</strong> <%= passenger.name %></p>    
+    <p><strong>Email:</strong> <%= passenger.email %></p><hr>
+  <% end %>
+</ul>
